@@ -1,10 +1,12 @@
 package com.writiq.blog.domain.entities;
 
 import java.time.Instant;
+import java.util.List;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -39,6 +41,15 @@ public class Post {
 
     @Field
     private PostStatus status;
+
+    @DBRef
+    private User author;
+
+    @DBRef
+    private Category category;
+
+    @DBRef
+    private List<Tag> tag;
 
     @Field
     @CreatedDate

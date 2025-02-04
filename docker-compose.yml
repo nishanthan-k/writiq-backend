@@ -1,32 +1,24 @@
-version: '3.0'
-
 services:
-  mongodb:
-    image: mongo:latest
-    container_name: mongodb
+  mongobd:
+    image: mongo
+    container_name: writiq
+    ports:
+     - 27017:27017
+    volumes:
+      - writiq_vol:/data
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=root
-      - MONGO_INITDB_DATABASE=writiq
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongodb_data:/data/db
-    restart: "no"
-
+  
   mongo-express:
     image: mongo-express
-    container_name: mongo-express
+    container_name: mongo_express
     ports:
-      - "8081:8080"
+      - 8081:8081
     environment:
       - ME_CONFIG_MONGODB_ADMINUSERNAME=root
       - ME_CONFIG_MONGODB_ADMINPASSWORD=root
-      - ME_CONFIG_MONGODB_SERVER=mongodb
-      - ME_CONFIG_MONGODB_PORT=27017
-      - ME_CONFIG_MONGODB_DATABASE=writiq
-    restart: "no"
+      - ME_CONFIG_MONGODB_SERVER=writiq
 
 volumes:
-  mongodb_data:
-    driver: local
+  writiq_vol: {}
