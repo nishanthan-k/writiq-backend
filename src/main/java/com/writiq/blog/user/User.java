@@ -1,13 +1,14 @@
-package com.writiq.blog.domain.entities;
+package com.writiq.blog.user;
 
 import java.time.Instant;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,21 +21,24 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-@Document(collection = "tags")
-public class Tag {
+@Document(collection = "users")
+public class User {
 
-    @Id
-    private String id;
+  @Id
+  private String id;
 
-    @Field
-    @NotBlank
-    private String name;
+  @Indexed(unique = true)
+  @NotBlank
+  @Email
+  private String email;
 
-    @Field
-    @CreatedDate
-    private Instant createdAt;
+  @NotBlank
+  private String password;
 
-    @Field
-    @LastModifiedDate
-    private Instant updatedAt;
+  @CreatedDate
+  private Instant createdAt;
+
+  @LastModifiedDate
+  private Instant updatedAt;
+
 }

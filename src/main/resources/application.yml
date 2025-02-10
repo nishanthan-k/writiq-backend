@@ -7,3 +7,4 @@ spring:
             port: 27017
             database: writiq
             authentication-database: admin
+            auto-index-creation: true
